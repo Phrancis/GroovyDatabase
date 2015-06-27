@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="70c73d49-c64c-456b-8bc4-c2d7f12a9b43" name="Default" comment="Swing input works">
+    <list default="true" id="70c73d49-c64c-456b-8bc4-c2d7f12a9b43" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="GroovyDatabase.iws" />
@@ -459,7 +459,13 @@
       <option name="project" value="LOCAL" />
       <updated>1435396002108</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Swing input works">
+      <created>1435397722734</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1435397722734</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
