@@ -8,7 +8,7 @@ import groovy.beans.Bindable
 // import static javax.swing.JFrame.EXIT_ON_CLOSE
 import java.awt.*
 
-def dbUrl      = 'jdbc:postgresql://localhost/GroovyTest'
+/*def dbUrl      = 'jdbc:postgresql://localhost/GroovyTest'
 def dbUser     = 'Phrancis'
 def dbPassword = 'test'
 def dbDriver   = 'org.postgresql.Driver'
@@ -29,38 +29,49 @@ sql.execute """
             decimal NUMERIC,
             datetime TIMESTAMP
             );
-        COMMIT;"""
+        COMMIT;"""*/
 
-//String word
-
+/**
+ * Define possible input fields.
+ */
 @Bindable
 class UserInput {
-    String word
+    String word;
+    int num;
 }
 
-def userInput = new UserInput(word: null)
+/**
+ * Initialize values for input fields.
+ */
+def userInput = new UserInput(
+        word: '',
+        num: 0)
 
-def swingBuilder = new SwingBuilder().edt {
+new SwingBuilder().edt {
+
+    // style of forms
     lookAndFeel 'nimbus'
-    // frame size
-    def width = 350
-    def height = 230
-    frame (title: 'Input',
+
+    // frame sizes
+    def width = 400
+    def height = 300
+
+    frame (title: 'Application',
             size: [width, height],
             show: true,
             locationRelativeTo: null ) {
         borderLayout(vgap: 5)
         panel(constraints: BorderLayout.CENTER,
-                border: compoundBorder([emptyBorder(10), titledBorder('Input:')])) {
+                border: compoundBorder([emptyBorder(10), titledBorder('Enter data:')])) {
             tableLayout {
                 tr {
-                    td { label 'Input: ' }
+                    td { label 'Word: ' }
                     td { textField id:'input', columns: 20 }
                 }
             }
         }
         panel(constraints: BorderLayout.SOUTH) {
-            button text: 'Print word', actionPerformed: {
+            button text: 'Print', actionPerformed: {
                 println """Word: ${userInput.word}"""
             }
         }
@@ -86,4 +97,5 @@ The number is: ${row.number}
 The decimal is: ${row.decimal}
 The date-time is: ${row.datetime}"""
 }*/
-sql.close()
+/*
+sql.close()*/

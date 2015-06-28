@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="70c73d49-c64c-456b-8bc4-c2d7f12a9b43" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DatabaseSwingTest.groovy" afterPath="$PROJECT_DIR$/DatabaseSwingTest.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SwingForm.groovy" afterPath="$PROJECT_DIR$/SwingForm.groovy" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="GroovyDatabase.iws" />
@@ -42,9 +41,10 @@
       <file leaf-file-name="DatabaseSwingTest.groovy" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/DatabaseSwingTest.groovy">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.52816904">
-              <caret line="59" column="13" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.34976527">
+              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
               <folding>
+                <element signature="n#!!doc" expanded="true" />
                 <element signature="e#58#79#0" expanded="true" />
               </folding>
             </state>
@@ -516,7 +516,13 @@
       <option name="project" value="LOCAL" />
       <updated>1435456581942</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Swing input works">
+      <created>1435469830909</created>
+      <option name="number" value="00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1435469830909</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -665,9 +671,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/DatabaseSwingTest.groovy">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.52816904">
-          <caret line="59" column="13" selection-start-line="59" selection-start-column="13" selection-end-line="59" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.34976527">
+          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
           <folding>
+            <element signature="n#!!doc" expanded="true" />
             <element signature="e#58#79#0" expanded="true" />
           </folding>
         </state>
