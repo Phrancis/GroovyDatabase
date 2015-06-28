@@ -2,10 +2,8 @@
  * @author github.com/Phrancis
  */
 import groovy.sql.Sql
-// import groovy.json.JsonSlurper
 import groovy.swing.SwingBuilder
 import groovy.beans.Bindable
-// import static javax.swing.JFrame.EXIT_ON_CLOSE
 import java.awt.*
 
 
@@ -15,16 +13,16 @@ import java.awt.*
  */
 @Bindable
 class UserInput {
-    String word;
-    String num;
+    String firstName;
+    String lastName;
 }
 
 /**
  * Initialize values for input fields.
  */
 def userInput = new UserInput(
-        word: '',
-        num: 0)
+        firstName: null,
+        lastName: null)
 
 def swingBuilder = new SwingBuilder()
 
@@ -33,12 +31,12 @@ swingBuilder.edt {
     // style of form
     lookAndFeel 'nimbus'
 
-    // frame sizes
+    // outer frame size
     def width = 400
     def height = 300
 
     // outer frame
-    frame (title: 'Application',
+    frame (title: 'User information',
             size: [width, height],
             show: true,
             locationRelativeTo: null ) {
@@ -50,32 +48,34 @@ swingBuilder.edt {
                 BorderLayout.CENTER,
                 border: compoundBorder(
                         [emptyBorder(10),
-                         titledBorder('Enter data:')])) {
+                         titledBorder('Complete the following form:')])) {
             tableLayout {
                 tr {
-                    td { label 'Enter a word: ' }
-                    td { textField id:'word', columns: 20 }
+                    td { label 'First name:' }
+                    td { textField id:'firstName', columns: 20 }
                 }
                 tr {
-                    td { label 'Enter a number: ' }
-                    td { textField id:'num', columns: 20 }
+                    td { label 'Last name:' }
+                    td { textField id:'lastName', columns: 20 }
                 }
             }
         }
+        // testing code only
         panel(constraints: BorderLayout.SOUTH) {
             button text: 'Print', actionPerformed: {
-                println """Word: ${userInput.word}"""
-                println """Number: ${userInput.num}"""
+                println """You entered:"""
+                println """First name: ${userInput.firstName}"""
+                println """Last name: ${userInput.lastName}"""
             }
         }
         // Bind the fields to the bean
-        bean userInput, word: bind { word.text }
-        bean userInput, num: bind { num.text }
+        bean userInput, firstName: bind { firstName.text }
+        bean userInput, lastName: bind { lastName.text }
     }
 }
 
 
-/*def dbUrl      = 'jdbc:postgresql://localhost/GroovyTest'
+def dbUrl      = 'jdbc:postgresql://localhost/GroovyTest'
 def dbUser     = 'Phrancis'
 def dbPassword = 'test'
 def dbDriver   = 'org.postgresql.Driver'
@@ -96,10 +96,10 @@ sql.execute """
             decimal NUMERIC,
             datetime TIMESTAMP
             );
-        COMMIT;"""*/
+        COMMIT;"""
 
 
-/*def sqlInsert = { List<Object> params ->
+def sqlInsert = { List<Object> params ->
     sql.execute """
         START TRANSACTION;
         INSERT INTO test (string, number, decimal, datetime)
@@ -114,6 +114,5 @@ The string is: ${row.string}
 The number is: ${row.number}
 The decimal is: ${row.decimal}
 The date-time is: ${row.datetime}"""
-}*/
-/*
-sql.close()*/
+}
+sql.close()
