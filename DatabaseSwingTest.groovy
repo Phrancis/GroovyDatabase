@@ -1,5 +1,5 @@
 /**
- * Created by francisveilleux-gaboury on 6/24/15.
+ * @author github.com/Phrancis
  */
 import groovy.sql.Sql
 // import groovy.json.JsonSlurper
@@ -16,7 +16,7 @@ import java.awt.*
 @Bindable
 class UserInput {
     String word;
-    int num;
+    String num;
 }
 
 /**
@@ -26,7 +26,9 @@ def userInput = new UserInput(
         word: '',
         num: 0)
 
-new SwingBuilder().edt {
+def swingBuilder = new SwingBuilder()
+
+swingBuilder.edt {
 
     // style of form
     lookAndFeel 'nimbus'
