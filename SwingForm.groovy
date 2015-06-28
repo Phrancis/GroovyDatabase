@@ -20,7 +20,8 @@ def swingBuilder = new SwingBuilder().edt {
     frame (title: 'Input',
             size: [width, height],
             show: true,
-            locationRelativeTo: null ) {
+            locationRelativeTo: null,
+            DefaultCloseOperation: EXIT_ON_CLOSE ) {
         borderLayout(vgap: 5)
         panel(constraints: BorderLayout.CENTER,
                 border: compoundBorder([emptyBorder(10), titledBorder('Input:')])) {

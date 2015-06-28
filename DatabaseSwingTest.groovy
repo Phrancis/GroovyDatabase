@@ -34,55 +34,38 @@ sql.execute """
 //String word
 
 @Bindable
-class UserInput { public
-    string,
-    num,
-    decimal,
-    datetime
+class UserInput {
+    String word
 }
 
-def userInput = new UserInput(
-        string: null,
-        num: null,
-        decimal: null,
-        datetime: null
-)
+def userInput = new UserInput(word: null)
 
-new SwingBuilder().edt {
+def swingBuilder = new SwingBuilder().edt {
     lookAndFeel 'nimbus'
     // frame size
     def width = 350
     def height = 230
-    frame (title: 'Data Input Application',
+    frame (title: 'Input',
             size: [width, height],
             show: true,
             locationRelativeTo: null ) {
         borderLayout(vgap: 5)
         panel(constraints: BorderLayout.CENTER,
-            border: compoundBorder([emptyBorder(10),
-            titledBorder('Please enter values:')])) {
+                border: compoundBorder([emptyBorder(10), titledBorder('Input:')])) {
             tableLayout {
                 tr {
-                    td { label 'String: ' }
-                    td { textField id:'string', columns: 20 }
-                    def string = {string}
-                    bean userInput, {string}: bind { userinput.string }
-                }
-                tr {
-                    td { label 'Num: ' }
-                    td { textField id:'num', columns: 20 }
-                    def num = {num}
-                    bean userInput, {num}: bind { userInput.num }
+                    td { label 'Input: ' }
+                    td { textField id:'input', columns: 20 }
                 }
             }
         }
         panel(constraints: BorderLayout.SOUTH) {
-            button text: 'Print!', actionPerformed: {
-                println """String: ${userInput.string}"""
-                println """Num: ${userInput.num}"""}
+            button text: 'Print word', actionPerformed: {
+                println """Word: ${userInput.word}"""
+            }
         }
-        // Bind the text fields to the beans
-
+        // Bind the text field to the bean
+        bean userInput, word: bind { input.text }
     }
 }
 
