@@ -1,7 +1,6 @@
 @Grapes(
         @Grab(group='org.mongodb', module='mongo-java-driver', version='3.0.3')
 )
-import org.hibernate.*
 import com.mongodb.*
 import com.mongodb.util.JSON
 
@@ -88,3 +87,24 @@ while (cursor.hasNext()) {
 
 // DELETE FROM collection;
 collection.remove(new BasicDBObject());
+
+/* OUTPUT:
+1. Using BasicDBObject
+userDoc1: { "method" : "BasicDBObject" , "type" : "user" , "name" : "Phrancis" , "details" : { "created" : "2015-09-12" , "country" : "USA"}}
+2. Using BasicDBObjectBuilder
+userDoc2: com.mongodb.BasicDBObjectBuilder@8c11eee
+3. Using HashMap
+userMap: [method:HashMap, name:Phrancis, details:[country:USA, created:2015-09-12], type:user]
+4. Using JSON.parse
+userJsonObject: { "method" : "JSON.parse" , "type" : "user" , "name" : "Phrancis" , "details" : { "country" : "USA" , "created" : "2015-09-12"}}
+
+SELECT * FROM collection;
+Document 1 in DBCollection{database=DB{name='local'}, name='testCollection'}:
+{ "_id" : { "$oid" : "55f5a84ae2d644685ef98c4d"} , "method" : "BasicDBObject" , "type" : "user" , "name" : "Phrancis" , "details" : { "created" : "2015-09-12" , "country" : "USA"}}
+Document 2 in DBCollection{database=DB{name='local'}, name='testCollection'}:
+{ "_id" : { "$oid" : "55f5a84ae2d644685ef98c4e"} , "method" : "BasicDBObjectBuilder" , "type" : "user" , "name" : "Phrancis" , "details" : { "created" : "2015-09-12" , "country" : "USA"}}
+Document 3 in DBCollection{database=DB{name='local'}, name='testCollection'}:
+{ "_id" : { "$oid" : "55f5a84ae2d644685ef98c4f"} , "method" : "HashMap" , "name" : "Phrancis" , "details" : { "country" : "USA" , "created" : "2015-09-12"} , "type" : "user"}
+Document 4 in DBCollection{database=DB{name='local'}, name='testCollection'}:
+{ "_id" : { "$oid" : "55f5a84ae2d644685ef98c50"} , "method" : "JSON.parse" , "type" : "user" , "name" : "Phrancis" , "details" : { "country" : "USA" , "created" : "2015-09-12"}}
+ */
