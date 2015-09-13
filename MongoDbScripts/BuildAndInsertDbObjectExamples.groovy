@@ -14,7 +14,7 @@ println "collection: $collection"
 
 def i // counter
 
-// Clear collection
+// DELETE FROM collection;
 collection.remove(new BasicDBObject())
 
 // 1. Using BasicDBObject
@@ -32,6 +32,7 @@ println "userDoc1: ${userDoc1.toString()}"
 
 collection.insert(userDoc1)
 
+// SELECT * FROM collection;
 DBCursor cursor1 = collection.find()
 i = 1
 while (cursor1.hasNext()) {
@@ -39,7 +40,7 @@ while (cursor1.hasNext()) {
     i++
 }
 println()
-// Clear collection
+// DELETE FROM collection;
 collection.remove(new BasicDBObject());
 
 // 2. Using BasicDBObjectBuilder
@@ -56,6 +57,7 @@ collection.insert(userDoc2.get())
 
 println "userDoc2: ${userDoc2.toString()}"
 
+// SELECT * FROM collection;
 DBCursor cursor2 = collection.find()
 i = 1
 while (cursor2.hasNext()) {
@@ -63,6 +65,29 @@ while (cursor2.hasNext()) {
     i++
 }
 println()
-// Clear collection
+// DELETE FROM collection;
+collection.remove(new BasicDBObject());
+
+// 3. Using Maps
+println "3. Using Maps"
+
+Map<String, Object> userMap = new HashMap<String, Object>()
+    userMap.put("type", "user")
+    userMap.put("name", "Phrancis")
+Map<String, Object> userDetailMap = new HashMap<String, Object>()
+    userDetailMap.put("created", "2015-09-12")
+    userDetailMap.put("country", "USA")
+userMap.put("details", userDetailMap)
+collection.insert(new BasicDBObject(userMap))
+
+// SELECT * FROM collection;
+DBCursor cursor3 = collection.find()
+i = 1
+while (cursor3.hasNext()) {
+    println "Document $i in collection: ${cursor3.next().toString()}"
+    i++
+}
+println()
+// DELETE FROM collection;
 collection.remove(new BasicDBObject());
 
