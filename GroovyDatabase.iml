@@ -17,5 +17,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" exported="" name="org.hibernate.ogm:hibernate-ogm-mongodb:4.2.0.Final" level="project" />
+    <orderEntry type="library" exported="" name="org.mongodb:bson:2.5.2" level="project" />
   </component>
 </module>
