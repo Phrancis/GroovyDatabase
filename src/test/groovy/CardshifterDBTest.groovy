@@ -7,7 +7,7 @@ import org.junit.Test
 
 class CardshifterDBTest {
     @Test
-    public void testCardshifterDB() throws Exception {
+    void testCardshifterDB() throws Exception {
         def testCSDB = new CardshifterDB()
         assert testCSDB instanceof CardshifterDB
         assert testCSDB.getHost() == "localhost"
