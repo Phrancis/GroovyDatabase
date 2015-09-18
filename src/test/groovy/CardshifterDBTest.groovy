@@ -16,5 +16,4 @@ class CardshifterDBTest {
         def testDBCollection = testDB.getCollection("test")
         assert testDBCollection instanceof DBCollection
     }
-
 }
