@@ -1,6 +1,0 @@
-{
-  "url": "jdbc:postgresql://localhost/GroovyTest",
-  "user": "Phrancis",
-  "password": "test",
-  "driver": "org.postgresql.Driver"
-}
