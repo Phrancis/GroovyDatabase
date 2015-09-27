@@ -1,1 +1,1 @@
-#GroovyDatabase
+MongoDB database design implemented using Groovy. 
