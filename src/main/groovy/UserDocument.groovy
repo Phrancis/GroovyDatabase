@@ -40,7 +40,7 @@ class UserDocument {
      * Build a user document object.
      * @return BasicDBObjectBuilder
      */
-    def BasicDBObjectBuilder createUserDocument() {
+    def create() {
         def dboBuilder = new BasicDBObjectBuilder()
                 .start("user_name", userName)
                 .add("password_hash", passwordHash)
@@ -55,11 +55,6 @@ class UserDocument {
             userBuilder.add(k,v)
         }
         userBuilder.pop()
-    }
-    def insertUserDocument() {
-        def users = usersCollection()
-        def userDoc = createUserDocument()
-        users.insert(userDoc.get())
     }
 }
 
