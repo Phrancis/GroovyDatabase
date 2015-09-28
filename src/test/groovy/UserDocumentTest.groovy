@@ -27,14 +27,10 @@ class UserDocumentTest {
                 .encodeHex()
                 .toString()
     }
-    @Test
-    void testUsersCollection() {
-        def testUsersCollection = testUserDocument.usersCollection()
-        assert testUsersCollection instanceof DBCollection
-    }
+
     @Test
     void testCreateUserDocument() {
-        userDocBuilder = testUserDocument.create()
+        def userDocBuilder = testUserDocument.create()
         assert userDocBuilder instanceof BasicDBObjectBuilder
 
     }
