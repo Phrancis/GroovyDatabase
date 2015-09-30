@@ -7,7 +7,7 @@ import groovy.transform.ToString
 import java.security.MessageDigest
 
 @ToString(includeNames = true, includeFields = true)
-class UserDocument {
+class UserDocumentBuilder {
     String userName
     String passwordHash
     Date dateCreated
@@ -18,15 +18,13 @@ class UserDocument {
      * @param passwordHash  The password after it is hashed.
      * @param dateCreated  The date when the user is created, defaulting to "now" but can be passed another date
      */
-    UserDocument(String userName, String passwordHash, Date dateCreated = new Date()) {
+    UserDocumentBuilder(String userName, String passwordHash, Date dateCreated = new Date()) {
         this.userName = userName
         this.passwordHash = MessageDigest.getInstance("MD5").digest(passwordHash.bytes).encodeHex().toString()
         this.dateCreated = dateCreated
     }
-//    def toString = { UserDocument ->
-//        it.get().toString()
-//    }
     /**
+     * TODO: Move this method to a UsersCollection class
      * Access the "users" MongoDB collection.
      * @return DBCollection
      */
@@ -34,7 +32,7 @@ class UserDocument {
         def usersCollection = new CardshifterDB()
                 .getDB()
                 .getCollection("users")
-        usersCollection
+        return usersCollection
     }
     /**
      * Build a user document object.
@@ -45,18 +43,12 @@ class UserDocument {
                 .start("user_name", userName)
                 .add("password_hash", passwordHash)
                 .add("date_created", dateCreated)
-        dboBuilder
+        return dboBuilder
     }
 
-    static void addUserDetails(userBuilder, Map details) {
-        userBuilder
-                .push("details")
-        details.each { k,v ->
-            userBuilder.add(k,v)
-        }
-        userBuilder.pop()
+    def addDetails(BasicDBObjectBuilder userDocument, Map details) {
+        def detailsBuilder = new BasicDBObjectBuilder()
+                .start(details)
+        userDocument.add("details", detailsBuilder.get())
     }
 }
-
-// def usersCollection = usersCollection()
-// usersCollection.insert(dboBuilder.get())
