@@ -24,17 +24,6 @@ class UserDocumentBuilder {
         this.dateCreated = dateCreated
     }
     /**
-     * TODO: Move this method to a UsersCollection class
-     * Access the "users" MongoDB collection.
-     * @return DBCollection
-     */
-    static DBCollection usersCollection() {
-        def usersCollection = new CardshifterDB()
-                .getDB()
-                .getCollection("users")
-        return usersCollection
-    }
-    /**
      * Build a user document object.
      * @return BasicDBObjectBuilder
      */
@@ -45,10 +34,26 @@ class UserDocumentBuilder {
                 .add("date_created", dateCreated)
         return dboBuilder
     }
-
-    def addDetails(BasicDBObjectBuilder userDocument, Map details) {
+    /**
+     * Create a separate BasicDBObjectBuilder for details, then add it to the
+     * @param userDocument
+     * @param details
+     * @return
+     */
+    static addDetails(BasicDBObjectBuilder userDocument, Map details) {
         def detailsBuilder = new BasicDBObjectBuilder()
                 .start(details)
         userDocument.add("details", detailsBuilder.get())
+    }
+    /**
+     * TODO: Move this method to a UsersCollection class
+     * Access the "users" MongoDB collection.
+     * @return DBCollection
+     */
+    static DBCollection usersCollection() {
+        def usersCollection = new CardshifterDB()
+                .getDB()
+                .getCollection("users")
+        return usersCollection
     }
 }
