@@ -1,5 +1,6 @@
 package groovydatabase
 import com.mongodb.BasicDBObjectBuilder
+import com.mongodb.DBObject
 import org.junit.Test
 import org.junit.Before
 import java.security.MessageDigest
@@ -20,6 +21,7 @@ class UserDocumentBuilderTest {
     public void initialize() {
         testUserDocument = new UserDocumentBuilder(USERNAME, PASSWORD)
     }
+
     @Test
     void testUserDocumentDataIsCorrect() {
         assert testUserDocument.getUserName() == USERNAME
@@ -38,6 +40,7 @@ class UserDocumentBuilderTest {
     void testCreateUserDocument() {
         def testUserDocumentBuilder = testUserDocument.create()
         assert testUserDocumentBuilder instanceof BasicDBObjectBuilder
+        assert testUserDocumentBuilder.get() instanceof DBObject;
         println "testCreateUserDocument() results: ${testUserDocumentBuilder.get().toString()}"
     }
     @Test
