@@ -37,11 +37,10 @@ class UserDocumentBuilderTest {
                 .toString()
     }
     @Test
-    void testCreateUserDocument() {
+    void testCreateUserDocumentAsBuilder() {
         def testUserDocumentBuilder = testUserDocument.create()
         assert testUserDocumentBuilder instanceof BasicDBObjectBuilder
         assert testUserDocumentBuilder.get() instanceof DBObject;
-        println "testCreateUserDocument() results: ${testUserDocumentBuilder.get().toString()}"
     }
     @Test
     void testAddUserDetails() {
@@ -50,7 +49,6 @@ class UserDocumentBuilderTest {
         testUserDocument
                 .addDetails(testUserDocumentBuilderWithDetails, USER_DETAILS)
         assert testUserDocumentBuilderWithDetails instanceof BasicDBObjectBuilder
-        println "testAddUserDetails() results: ${testUserDocumentBuilderWithDetails.get().toString()}"
     }
 
 }
