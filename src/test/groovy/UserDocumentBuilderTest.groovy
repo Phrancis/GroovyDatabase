@@ -6,7 +6,7 @@ import org.junit.Before
 import java.security.MessageDigest
 
 class UserDocumentBuilderTest {
-    UserDocumentBuilder testUserDocument
+    UserDocumentBuilder testUserDocumentBuilder
     final String USERNAME = "myName"
     final String PASSWORD = "myPassword"
     final String HASHING_ALGORITHM = "MD5"
@@ -19,18 +19,18 @@ class UserDocumentBuilderTest {
 
     @Before
     public void initialize() {
-        testUserDocument = new UserDocumentBuilder(USERNAME, PASSWORD)
+        testUserDocumentBuilder = new UserDocumentBuilder(USERNAME, PASSWORD)
     }
 
     @Test
     void testUserDocumentDataIsCorrect() {
-        assert testUserDocument.getUserName() == USERNAME
-        assert testUserDocument.getPasswordHash() != PASSWORD
-        assert testUserDocument.getDateCreated() instanceof Date
+        assert testUserDocumentBuilder.getUserName() == USERNAME
+        assert testUserDocumentBuilder.getPasswordHash() != PASSWORD
+        assert testUserDocumentBuilder.getDateCreated() instanceof Date
     }
     @Test
     void testHashingAlgorithm() {
-        assert testUserDocument.getPasswordHash() == MessageDigest
+        assert testUserDocumentBuilder.getPasswordHash() == MessageDigest
                 .getInstance(HASHING_ALGORITHM)
                 .digest(PASSWORD.bytes)
                 .encodeHex()
@@ -38,15 +38,15 @@ class UserDocumentBuilderTest {
     }
     @Test
     void testCreateUserDocumentAsBuilder() {
-        def testUserDocumentBuilder = testUserDocument.create()
+        def testUserDocumentBuilder = testUserDocumentBuilder.create()
         assert testUserDocumentBuilder instanceof BasicDBObjectBuilder
         assert testUserDocumentBuilder.get() instanceof DBObject;
     }
     @Test
     void testAddUserDetails() {
-        def testUserDocumentBuilderWithDetails = testUserDocument
+        def testUserDocumentBuilderWithDetails = testUserDocumentBuilder
                 .create()
-        testUserDocument
+        testUserDocumentBuilder
                 .addDetails(testUserDocumentBuilderWithDetails, USER_DETAILS)
         assert testUserDocumentBuilderWithDetails instanceof BasicDBObjectBuilder
     }
