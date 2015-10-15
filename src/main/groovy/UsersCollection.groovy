@@ -1,6 +1,7 @@
 package groovydatabase
 
 import com.mongodb.DBCollection
+import com.mongodb.DBObject
 import groovy.json.*
 import groovy.transform.ToString
 
@@ -13,11 +14,11 @@ class UsersCollection {
                 .getDB()
                 .getCollection("users")
     }
-    void deleteUser(String userName) {
-        def jsonParse = new JsonSlurper()
-        def userExists = usersCollection.findOne( { user_name : userName })
+    void deleteUser(DBObject user) {
+        //def jsonParse = new JsonSlurper()
+        def userExists = usersCollection.findOne( { user_name : user })
         if (!userExists) {
-            println "No such user to delete: \"$userName\""
+            println "No such user to delete: \"$user\""
         } else {
             // using BasicDBObject here because Groovy somehow
             // passes a closure instead of allowing the standard
@@ -25,7 +26,7 @@ class UsersCollection {
             //BasicDBObject userToRemove = new BasicDBObject("user_name", userName)
                     //.put("user_name", userName)
             usersCollection.remove(userExists)
-            println "User \"$userName\" deleted."
+            println "User \"$user\" deleted."
         }
     }
 

@@ -15,7 +15,7 @@ class UsersCollectionTest {
     @Before
     public void initialize() {
         testUserDocumentBuilder = new UserDocumentBuilder(USERNAME, PASSWORD)
-        testUserObject = testUserDocumentBuilder.create().get()
+                .create()
     }
     @Test
     void testGetUserObjectFromBuilder() {
@@ -26,18 +26,15 @@ class UsersCollectionTest {
     void testUsersCollectionIsAccessed() {
         assert testUsersCollection.getUsersCollection() instanceof DBCollection
     }
-//    @Test
-//    void testDeleteUser() {
-//        testUsersCollection.deleteUser(USERNAME)
-//        def jsonParse = new JsonSlurper()
-//        assert !testUsersCollection.find( jsonParse.parseText('{ "user_name" : "USERNAME" }') )
-//    }
-//    @Test
-//    void testDeleteUser() {
-//        testUsersCollection.deleteUser( { user_name : USERNAME } )
-//        def jsonParse = new JsonSlurper()
-//        assert !testUsersCollection.find( { user_name : USERNAME } )
-//    }
+    @Test
+    void testDeleteUser() {
+        testUserObject = testUserDocumentBuilder
+                .create()
+                .get()
+        assert testUserObject instanceof DBObject
+        testUsersCollection.deleteUser( testUserObject.get() )
+        assert !testUsersCollection.find( { user_name : USERNAME } )
+    }
 //    @Test
 //    void testInsertUserIfNotExists() {
 //        testUsersCollection.insertUserIfNotExists(testUserDocumentBuilder)

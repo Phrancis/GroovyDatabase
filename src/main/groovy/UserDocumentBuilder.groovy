@@ -45,15 +45,4 @@ class UserDocumentBuilder {
                 .start(details)
         userDocument.add("details", detailsBuilder.get())
     }
-    /**
-     * TODO: Move this method to a UsersCollection class
-     * Access the "users" MongoDB collection.
-     * @return DBCollection
-     */
-    static DBCollection usersCollection() {
-        def usersCollection = new CardshifterDB()
-                .getDB()
-                .getCollection("users")
-        return usersCollection
-    }
 }
