@@ -1,6 +1,7 @@
 package groovydatabase
 
 import com.mongodb.BasicDBObjectBuilder
+import com.mongodb.DBObject
 import groovy.transform.ToString
 
 import java.security.MessageDigest
@@ -17,7 +18,7 @@ class UserDocumentBuilder {
      * @param passwordHash  The password after it is hashed.
      * @param dateCreated  The date when the user is created, defaulting to "now" but can be passed another date
      */
-    UserDocumentBuilder(String userName, String passwordHash, Date dateCreated = new Date()) {
+    public UserDocumentBuilder(String userName, String passwordHash, Date dateCreated = new Date()) {
         this.userName = userName
         this.passwordHash = MessageDigest
                 .getInstance("MD5")
@@ -38,14 +39,19 @@ class UserDocumentBuilder {
         return dboBuilder
     }
     /**
-     * Create a separate BasicDBObjectBuilder for details, then add it to the
+     * Create a separate BasicDBObjectBuilder for details, then add it to the userDocument
      * @param userDocument
      * @param details
      * @return
      */
-    static void addDetails(BasicDBObjectBuilder userDocument, Map details) {
+    public static void addDetails(BasicDBObjectBuilder userDocument, Map details) {
         def detailsBuilder = new BasicDBObjectBuilder()
                 .start(details)
         userDocument.add("details", detailsBuilder.get())
+    }
+
+    public static DBObject build(BasicDBObjectBuilder userDocument) {
+        DBObject userDocumentObject = userDocument.get()
+        return userDocumentObject
     }
 }

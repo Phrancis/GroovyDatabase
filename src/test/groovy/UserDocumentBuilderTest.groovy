@@ -5,7 +5,9 @@ import org.junit.Test
 import org.junit.Before
 import java.security.MessageDigest
 
+
 class UserDocumentBuilderTest {
+
     UserDocumentBuilder testUserDocumentBuilder
     final String USERNAME = "myName"
     final String PASSWORD = "myPassword"
@@ -38,7 +40,8 @@ class UserDocumentBuilderTest {
     }
     @Test
     void testCreateUserDocumentAsBuilder() {
-        def testUserDocumentBuilder = testUserDocumentBuilder.begin()
+        def testUserDocumentBuilder = testUserDocumentBuilder
+                .begin()
         assert testUserDocumentBuilder instanceof BasicDBObjectBuilder
         assert testUserDocumentBuilder.get() instanceof DBObject;
     }
@@ -46,10 +49,20 @@ class UserDocumentBuilderTest {
     void testAddUserDetails() {
         def testUserDocumentBuilderWithDetails = testUserDocumentBuilder
                 .begin()
+        assert testUserDocumentBuilder instanceof UserDocumentBuilder
+
         testUserDocumentBuilder
                 .addDetails(testUserDocumentBuilderWithDetails, USER_DETAILS)
         assert testUserDocumentBuilderWithDetails instanceof BasicDBObjectBuilder
         assert testUserDocumentBuilderWithDetails.get() instanceof DBObject
+    }
+    @Test
+    void testBuild() {
+        def testUserDocumentObjectBuilder = testUserDocumentBuilder
+                .begin()
+        assert testUserDocumentObjectBuilder instanceof BasicDBObjectBuilder
+        def testUserDocumentObject = testUserDocumentObjectBuilder.get()
+        assert testUserDocumentObject instanceof DBObject
     }
 
 }
