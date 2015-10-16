@@ -1,7 +1,6 @@
 package groovydatabase
 
 import com.mongodb.BasicDBObjectBuilder
-import com.mongodb.DBCollection
 import groovy.transform.ToString
 
 import java.security.MessageDigest
@@ -20,14 +19,18 @@ class UserDocumentBuilder {
      */
     UserDocumentBuilder(String userName, String passwordHash, Date dateCreated = new Date()) {
         this.userName = userName
-        this.passwordHash = MessageDigest.getInstance("MD5").digest(passwordHash.bytes).encodeHex().toString()
+        this.passwordHash = MessageDigest
+                .getInstance("MD5")
+                .digest(passwordHash.bytes)
+                .encodeHex()
+                .toString()
         this.dateCreated = dateCreated
     }
     /**
      * Build a user document object.
      * @return BasicDBObjectBuilder
      */
-    def create() {
+    public begin() {
         def dboBuilder = new BasicDBObjectBuilder()
                 .start("user_name", userName)
                 .add("password_hash", passwordHash)
@@ -40,7 +43,7 @@ class UserDocumentBuilder {
      * @param details
      * @return
      */
-    static addDetails(BasicDBObjectBuilder userDocument, Map details) {
+    static void addDetails(BasicDBObjectBuilder userDocument, Map details) {
         def detailsBuilder = new BasicDBObjectBuilder()
                 .start(details)
         userDocument.add("details", detailsBuilder.get())

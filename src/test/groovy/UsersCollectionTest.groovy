@@ -1,38 +1,38 @@
 package groovydatabase
+
 import com.mongodb.DBCollection
 import com.mongodb.DBObject
-import groovy.json.*
 import org.junit.Test
 import org.junit.Before
 
 class UsersCollectionTest {
     final String USERNAME = "myName"
     final String PASSWORD = "myPassword"
-    UserDocumentBuilder testUserDocumentBuilder
-    UsersCollection testUsersCollection = new UsersCollection()
     DBObject testUserObject
+    def testUsersCollection
+    UserDocumentBuilder testUserDocumentBuilder
 
     @Before
     public void initialize() {
         testUserDocumentBuilder = new UserDocumentBuilder(USERNAME, PASSWORD)
-                .create()
+        testUserDocumentBuilder.begin()
+        testUsersCollection = new UsersCollection()
     }
     @Test
     void testGetUserObjectFromBuilder() {
+        testUserObject = testUserDocumentBuilder.build()
         assert testUserObject instanceof DBObject
     }
 
     @Test
-    void testUsersCollectionIsAccessed() {
+    void testUsersCollectionIsAMongoDBCollection() {
         assert testUsersCollection.getUsersCollection() instanceof DBCollection
     }
     @Test
     void testDeleteUser() {
-        testUserObject = testUserDocumentBuilder
-                .create()
-                .get()
+        testUserObject = testUserDocumentBuilder.build()
         assert testUserObject instanceof DBObject
-        testUsersCollection.deleteUser( testUserObject.get() )
+        testUsersCollection.deleteUser( testUserObject )
         assert !testUsersCollection.find( { user_name : USERNAME } )
     }
 //    @Test
