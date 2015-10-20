@@ -11,6 +11,8 @@ class UserDocumentBuilder {
     String userName
     String passwordHash
     Date dateCreated
+    BasicDBObjectBuilder userDocumentBuilder
+    DBObject userDBObject
     /**
      * Constructor.
      * TODO: Look into better hashing algorithms to use instead of MD5.
@@ -32,11 +34,12 @@ class UserDocumentBuilder {
      * @return BasicDBObjectBuilder
      */
     public begin() {
-        def dboBuilder = new BasicDBObjectBuilder()
+        userDocumentBuilder = new BasicDBObjectBuilder()
+        def builder = userDocumentBuilder
                 .start("user_name", userName)
                 .add("password_hash", passwordHash)
                 .add("date_created", dateCreated)
-        return dboBuilder
+        return builder
     }
     /**
      * Create a separate BasicDBObjectBuilder for details, then add it to the userDocument
@@ -44,14 +47,21 @@ class UserDocumentBuilder {
      * @param details
      * @return
      */
-    public static void addDetails(BasicDBObjectBuilder userDocument, Map details) {
+    public static void addDetails(BasicDBObjectBuilder userDocumentBuilder, Map details) {
         def detailsBuilder = new BasicDBObjectBuilder()
                 .start(details)
-        userDocument.add("details", detailsBuilder.get())
+        userDocumentBuilder.add("details", detailsBuilder.get())
     }
 
-    public static DBObject build(BasicDBObjectBuilder userDocument) {
-        DBObject userDocumentObject = userDocument.get()
-        return userDocumentObject
+//    public static DBObject build(BasicDBObjectBuilder userDocument) {
+//        DBObject userDocumentObject = userDocument.get()
+//        return userDocumentObject
+//    }
+//    public DBObject build(BasicDBObjectBuilder userDocument) {
+//        return userDocumentBuilder.getDBObject(userDocument)
+//    }
+    public DBObject build() {
+        DBObject userDBObject = this.userDocumentBuilder.get()
+        return userDBObject
     }
 }

@@ -40,28 +40,24 @@ class UserDocumentBuilderTest {
     }
     @Test
     void testCreateUserDocumentAsBuilder() {
-        def testUserDocumentBuilder = testUserDocumentBuilder
+        testUserDocumentBuilder
                 .begin()
-        assert testUserDocumentBuilder instanceof BasicDBObjectBuilder
-        assert testUserDocumentBuilder.get() instanceof DBObject;
+        assert testUserDocumentBuilder instanceof UserDocumentBuilder
     }
     @Test
     void testAddUserDetails() {
         def testUserDocumentBuilderWithDetails = testUserDocumentBuilder
                 .begin()
-        assert testUserDocumentBuilder instanceof UserDocumentBuilder
-
         testUserDocumentBuilder
                 .addDetails(testUserDocumentBuilderWithDetails, USER_DETAILS)
         assert testUserDocumentBuilderWithDetails instanceof BasicDBObjectBuilder
-        assert testUserDocumentBuilderWithDetails.get() instanceof DBObject
     }
     @Test
     void testBuild() {
-        def testUserDocumentObjectBuilder = testUserDocumentBuilder
+        testUserDocumentBuilder
                 .begin()
-        assert testUserDocumentObjectBuilder instanceof BasicDBObjectBuilder
-        def testUserDocumentObject = testUserDocumentObjectBuilder.get()
+        def testUserDocumentObject = testUserDocumentBuilder
+                .build()
         assert testUserDocumentObject instanceof DBObject
     }
 
