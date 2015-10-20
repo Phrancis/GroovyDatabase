@@ -59,7 +59,6 @@ class UserDocumentBuilderTest {
         def testUserDocumentDBObject = testUserDocumentBuilder
                 .build()
         assert testUserDocumentDBObject instanceof DBObject
-        print testUserDocumentDBObject.toString()
     }
 
 }
