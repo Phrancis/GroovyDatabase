@@ -8,11 +8,12 @@ import java.security.MessageDigest
 
 @ToString(includeNames = true, includeFields = true)
 class UserDocumentBuilder {
+
     String userName
     String passwordHash
     Date dateCreated
     BasicDBObjectBuilder userDocumentBuilder
-    DBObject userDBObject
+
     /**
      * Constructor.
      * TODO: Look into better hashing algorithms to use instead of MD5.
@@ -30,8 +31,8 @@ class UserDocumentBuilder {
         this.dateCreated = dateCreated
     }
     /**
-     * Build a user document object.
-     * @return BasicDBObjectBuilder
+     * Start the user document builder and add in the basic information from constructor.
+     * @return BasicDBObjectBuilder  the builder
      */
     public begin() {
         userDocumentBuilder = new BasicDBObjectBuilder()
@@ -42,26 +43,22 @@ class UserDocumentBuilder {
         return builder
     }
     /**
-     * Create a separate BasicDBObjectBuilder for details, then add it to the userDocument
-     * @param userDocument
-     * @param details
-     * @return
+     * Create a separate BasicDBObjectBuilder for details, then add it to the userDocumentBuilder
+     * @param userDocumentBuilder  The initial UserDocumentBuilder
+     * @param details  a Key-Value map of details to add to the initial UserDocumentBuilder
      */
     public static void addDetails(BasicDBObjectBuilder userDocumentBuilder, Map details) {
         def detailsBuilder = new BasicDBObjectBuilder()
                 .start(details)
         userDocumentBuilder.add("details", detailsBuilder.get())
     }
-
-//    public static DBObject build(BasicDBObjectBuilder userDocument) {
-//        DBObject userDocumentObject = userDocument.get()
-//        return userDocumentObject
-//    }
-//    public DBObject build(BasicDBObjectBuilder userDocument) {
-//        return userDocumentBuilder.getDBObject(userDocument)
-//    }
+    /**
+     * Makes the builder create a Mongo DBObject that can be used in the database.
+     * @return userDocumentDBObject  a DBObject with the user information
+     */
     public DBObject build() {
-        DBObject userDBObject = this.userDocumentBuilder.get()
-        return userDBObject
+        def userDocumentDBObject = userDocumentBuilder
+                .get()
+        return userDocumentDBObject
     }
 }
