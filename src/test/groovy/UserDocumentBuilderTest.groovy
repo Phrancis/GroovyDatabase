@@ -5,7 +5,9 @@ import org.junit.Test
 import org.junit.Before
 import java.security.MessageDigest
 
-
+/**
+ * These tests are focused on the UserDocumentBuilder class.
+ */
 class UserDocumentBuilderTest {
 
     UserDocumentBuilder testUserDocumentBuilder
@@ -27,7 +29,6 @@ class UserDocumentBuilderTest {
     @Test
     void testUserDocumentDataIsCorrect() {
         assert testUserDocumentBuilder.getUserName() == USERNAME
-        assert testUserDocumentBuilder.getPasswordHash() != PASSWORD
         assert testUserDocumentBuilder.getDateCreated() instanceof Date
     }
     @Test

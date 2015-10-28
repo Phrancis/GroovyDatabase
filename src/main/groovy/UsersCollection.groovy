@@ -14,25 +14,28 @@ class UsersCollection {
                 .getCollection("users")
     }
 
-    void deleteUser(DBObject user) {
-        def userExists = usersCollection.findOne( { user_name : user })
+
+    void deleteUser(UserDocumentBuilder user) {
+        def userExists = usersCollection
+                .find( { user_name : user.getUserName() } )
         if (!userExists) {
-            println "No such user to delete: \"$user\""
+            println "No such user to delete: \"${user.getUserName()}\""
         } else {
-            usersCollection.remove(userExists)
-            println "User \"$user\" deleted."
+            usersCollection.remove(user.build())
+            println "User \"${user.getUserName()}\" deleted."
         }
     }
 
     void insertUserIfNotExists(UserDocumentBuilder user) {
-        def userExists = usersCollection.find( { user_name : user.getUserName() } )
+        def userExists = usersCollection
+                .find( { user_name : user.getUserName() } )
         if (userExists) {
             println "User \"${user.getUserName()}\" already exists."
-            //return userExists.toString()
+//            /*return*/println userExists.toString()
         } else {
             usersCollection.insert(user)
             println "User \"${user.getUserName()}\" inserted."
-            //return usersCollection.find( { user_name : user.getUserName() } ).toString()
+//            /*return*/println usersCollection.find( { user_name : user.getUserName() } ).toString()
         }
     }
 }

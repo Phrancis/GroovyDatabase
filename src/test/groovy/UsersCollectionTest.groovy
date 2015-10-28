@@ -16,28 +16,35 @@ class UsersCollectionTest {
     public void initialize() {
         testUserDocumentBuilder = new UserDocumentBuilder(USERNAME, PASSWORD)
         testUserDocumentBuilder.begin()
+        testUserObject = testUserDocumentBuilder.build()
         testUsersCollection = new UsersCollection()
     }
     @Test
     void testGetUserObjectFromBuilder() {
-        testUserObject = testUserDocumentBuilder.build()
         assert testUserObject instanceof DBObject
     }
-
     @Test
     void testUsersCollectionIsAMongoDBCollection() {
         assert testUsersCollection.getUsersCollection() instanceof DBCollection
     }
+//    @Test
+//    void findAllUserDocumentsThatAlreadyExist() {
+//        def userDocumentCursor = testUsersCollection
+//                .find( { user_name : USERNAME } )
+//        println userDocumentCursor
+//    }
     @Test
     void testDeleteUser() {
-        testUserObject = testUserDocumentBuilder.build()
-        assert testUserObject instanceof DBObject
-        testUsersCollection.deleteUser( testUserObject )
-        assert !testUsersCollection.find( { user_name : USERNAME } )
+        testUsersCollection.deleteUser( testUserDocumentBuilder )
+//        assert testUsersCollection
+//                .getUsersCollection() instanceof DBCollection
+        assert !testUsersCollection
+                .getUsersCollection()
+                .findOne( testUserObject )
     }
-//    @Test
-//    void testInsertUserIfNotExists() {
-//        testUsersCollection.insertUserIfNotExists(testUserDocumentBuilder)
-//        assert testUsersCollection.find( { user_name : USERNAME } )
-//    }
+    @Test
+    void testInsertUserIfNotExists() {
+        testUsersCollection.insertUserIfNotExists(testUserDocumentBuilder)
+        assert testUsersCollection.find( { user_name : USERNAME } )
+    }
 }

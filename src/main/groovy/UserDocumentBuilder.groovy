@@ -18,7 +18,7 @@ class UserDocumentBuilder {
      * Constructor.
      * TODO: Look into better hashing algorithms to use instead of MD5.
      * @param userName  The name of the new user
-     * @param passwordHash  The password after it is hashed.
+     * @param passwordHash  The password after it is hashed
      * @param dateCreated  The date when the user is created, defaulting to "now" but can be passed another date
      */
     public UserDocumentBuilder(String userName, String passwordHash, Date dateCreated = new Date()) {
@@ -32,7 +32,7 @@ class UserDocumentBuilder {
     }
     /**
      * Start the user document builder and add in the basic information from constructor.
-     * @return BasicDBObjectBuilder  the builder
+     * @return BasicDBObjectBuilder  the user DBObject builder
      */
     public begin() {
         userDocumentBuilder = new BasicDBObjectBuilder()
