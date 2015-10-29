@@ -33,15 +33,15 @@ class UsersCollectionTest {
 //                .find( { user_name : USERNAME } )
 //        println userDocumentCursor
 //    }
-    @Test
-    void testDeleteUser() {
-        testUsersCollection.deleteUser( testUserDocumentBuilder )
-//        assert testUsersCollection
-//                .getUsersCollection() instanceof DBCollection
-        assert !testUsersCollection
-                .getUsersCollection()
-                .findOne( testUserObject )
-    }
+//    @Test
+//    void testDeleteUser() {
+//        testUsersCollection.deleteUser( testUserDocumentBuilder )
+////        assert testUsersCollection
+////                .getUsersCollection() instanceof DBCollection
+//        assert !testUsersCollection
+//                .getUsersCollection()
+//                .findOne( testUserObject )
+//    }
     @Test
     void testInsertUserIfNotExists() {
         testUsersCollection.insertUserIfNotExists(testUserDocumentBuilder)
