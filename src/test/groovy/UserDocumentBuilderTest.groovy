@@ -11,6 +11,7 @@ import java.security.MessageDigest
 class UserDocumentBuilderTest {
 
     UserDocumentBuilder testUserDocumentBuilder
+    DBObject emptyDBObject
     final String USERNAME = "myName"
     final String PASSWORD = "myPassword"
     final String HASHING_ALGORITHM = "MD5"
@@ -24,6 +25,7 @@ class UserDocumentBuilderTest {
     @Before
     public void initialize() {
         testUserDocumentBuilder = new UserDocumentBuilder(USERNAME, PASSWORD)
+        emptyDBObject = new BasicDBObjectBuilder().get()
     }
 
     @Test
@@ -40,27 +42,26 @@ class UserDocumentBuilderTest {
                 .toString()
     }
     @Test
-    void testCreateUserDocumentAsBuilder() {
-        testUserDocumentBuilder
-                .begin()
-        assert testUserDocumentBuilder instanceof UserDocumentBuilder
+    void testBeginUserDocumentAsBasicDBObjectBuilder() {
+        def testBasicDBObjectBuilder = testUserDocumentBuilder.begin()
+        assert testBasicDBObjectBuilder instanceof BasicDBObjectBuilder
+        assert testBasicDBObjectBuilder.get() != emptyDBObject
     }
     @Test
     void testAddUserDetailsToBuilder() {
-        def testUserDocumentBuilderWithDetails = testUserDocumentBuilder
+        BasicDBObjectBuilder testUserDocumentBuilderWithDetails = testUserDocumentBuilder
                 .begin()
         testUserDocumentBuilder
                 .addDetails(testUserDocumentBuilderWithDetails, USER_DETAILS)
         assert testUserDocumentBuilderWithDetails instanceof BasicDBObjectBuilder
+        assert testUserDocumentBuilderWithDetails.get() != emptyDBObject
     }
     @Test
-    void testBuildDBObjectFromBuilder() {
-        testUserDocumentBuilder
+    void testGetDBObjectFromBuilder() {
+        DBObject testUserDocumentDBObject = testUserDocumentBuilder
                 .begin()
-        def testUserDocumentDBObject = testUserDocumentBuilder.build()
+                .get()
         assert testUserDocumentDBObject instanceof DBObject
-        println testUserDocumentBuilder
-        println testUserDocumentDBObject.toString()
+        assert testUserDocumentDBObject != emptyDBObject
     }
-
 }

@@ -1,12 +1,15 @@
 package groovydatabase
 
-import com.mongodb.BasicDBObject
 import com.mongodb.BasicDBObjectBuilder
-import com.mongodb.DBObject
 import groovy.transform.ToString
 
 import java.security.MessageDigest
 
+/**
+ * The UserDocumentBuilder is a builder pattern to facilitate the creation of user documents for insertion into
+ * a document database. At any point after calling `begin()` on the builder instance, we can `get()` on the BasicDBObjectBuilder
+ * to obtain a DBObject ready to be inserted or otherwise used in the document database.
+ */
 @ToString(includeNames = true, includeFields = true)
 class UserDocumentBuilder {
 
@@ -35,7 +38,7 @@ class UserDocumentBuilder {
      * Start the user document builder and add in the basic information from constructor.
      * @return BasicDBObjectBuilder  the user DBObject builder
      */
-    public begin() {
+    public BasicDBObjectBuilder begin() {
         def builder = userDocumentBuilder
                 .start("user_name", userName)
                 .add("password_hash", passwordHash)
@@ -51,12 +54,5 @@ class UserDocumentBuilder {
         def detailsBuilder = new BasicDBObjectBuilder()
                 .start(details)
         userDocumentBuilder.add("details", detailsBuilder.get())
-    }
-    /**
-     * Makes the builder create a Mongo DBObject that can be used in the database.
-     * @return userDocumentDBObject  a DBObject with the user information
-     */
-    public DBObject build() {
-        return userDocumentBuilder.get()
     }
 }
