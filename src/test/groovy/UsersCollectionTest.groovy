@@ -1,5 +1,6 @@
 package groovydatabase
 
+import com.mongodb.BasicDBObject
 import com.mongodb.DBCollection
 import com.mongodb.DBObject
 import org.junit.Test
@@ -45,6 +46,8 @@ class UsersCollectionTest {
     @Test
     void testInsertUserIfNotExists() {
         testUsersCollection.insertUserIfNotExists(testUserDocumentBuilder)
-        assert testUsersCollection.find( { user_name : USERNAME } )
+        BasicDBObject userFinder = new BasicDBObject()
+        userFinder.put("user_name", USERNAME)
+        assert testUsersCollection.getDBCollection().findOne(userFinder)
     }
 }

@@ -4,6 +4,7 @@ import com.mongodb.DB
 import com.mongodb.DBCollection
 import com.mongodb.MongoClient
 import com.mongodb.DBCursor
+import com.mongodb.BasicDBObjectBuilder
 
 /**
  * Ad hoc queries to check the MongoDB test database.
@@ -32,19 +33,29 @@ DBCursor cursor = users.find()
 DBObject currentUser
 
 /*Select all users from collection */
-//while (cursor.hasNext()) {
-//    currentUser = cursor.next()
-//    println currentUser
-//}
+while (cursor.hasNext()) {
+    currentUser = cursor.next()
+    println currentUser
+}
+
+BasicDBObjectBuilder bld = new BasicDBObjectBuilder()
+bld.start()
+bld.add( "name" , "eliot" )
+bld.add( "number" , 17 )
+DBObject obj = bld.get()
+println bld.toString()
+println obj.toString()
+//  com.mongodb.BasicDBObjectBuilder@290222c1
+//  { "name" : "eliot" , "number" : 17}
 
 /*Select with a where query*/
-String userName = "foo"
-BasicDBObject whereUserNameEquals = new BasicDBObject()
-whereUserNameEquals.put("user_name", userName)
-DBCursor cursor2 = users.find(whereUserNameEquals)
-while (cursor2.hasNext()) {
-    println cursor2.next()
-}
+//String userName = "foo"
+//BasicDBObject whereUserNameEquals = new BasicDBObject()
+//whereUserNameEquals.put("user_name", userName)
+//DBCursor cursor2 = users.find(whereUserNameEquals)
+//while (cursor2.hasNext()) {
+//    println cursor2.next()
+//}
 
 
 /*Remove one user from collection*/

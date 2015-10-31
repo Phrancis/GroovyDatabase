@@ -1,5 +1,6 @@
 package groovydatabase
 
+import com.mongodb.BasicDBObject
 import com.mongodb.BasicDBObjectBuilder
 import com.mongodb.DBObject
 import groovy.transform.ToString
@@ -12,7 +13,7 @@ class UserDocumentBuilder {
     String userName
     String passwordHash
     Date dateCreated
-    BasicDBObjectBuilder userDocumentBuilder
+    BasicDBObjectBuilder userDocumentBuilder = new BasicDBObjectBuilder()
 
     /**
      * Constructor.
@@ -35,7 +36,6 @@ class UserDocumentBuilder {
      * @return BasicDBObjectBuilder  the user DBObject builder
      */
     public begin() {
-        userDocumentBuilder = new BasicDBObjectBuilder()
         def builder = userDocumentBuilder
                 .start("user_name", userName)
                 .add("password_hash", passwordHash)
@@ -57,8 +57,6 @@ class UserDocumentBuilder {
      * @return userDocumentDBObject  a DBObject with the user information
      */
     public DBObject build() {
-        def userDocumentDBObject = userDocumentBuilder
-                .get()
-        return userDocumentDBObject
+        return userDocumentBuilder.get()
     }
 }
